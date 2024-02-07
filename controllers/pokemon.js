@@ -1,4 +1,5 @@
 import axios from "axios";
+import { pokemon } from "../data/data.js";
 
 export const getPokemons = async (req, res) => {
   try {
@@ -46,11 +47,11 @@ export const getPokemon = async (req, res) => {
   }
 };
 
-// export const getPokemonInfo = (req, res) => {
-//   const { id, info } = req.params;
-//   if (!info) return res.sendStatus(404);
-//   if (info !== "name" || info !== "type" || info !== "base")
-//     return sendStatus(404);
-//   const pokemonInfo = pokemon.find((poke) => poke.id === Number(id));
-//   res.json(pokemonInfo[info]);
-// };
+export const getPokemonInfo = (req, res) => {
+  const { id, info } = req.params;
+  if (!info) return res.sendStatus(404);
+  if (info !== "name" || info !== "type" || info !== "base")
+    return sendStatus(404);
+  const pokemonInfo = pokemon.find((poke) => poke.id === Number(id));
+  res.json(pokemonInfo[info]);
+};
