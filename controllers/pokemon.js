@@ -2,9 +2,11 @@ import axios from "axios";
 import { pokemon } from "../data/data.js";
 
 export const getPokemons = async (req, res) => {
+  const { offset, limit } = req.query;
+  console.log("Fetching pokemons", offset, limit)
   try {
     const response = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon?limit=50"
+      `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
     );
     const { results } = response.data;
     const arrayOfPromises = results.map((poke) => {
