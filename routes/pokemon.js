@@ -4,8 +4,8 @@ import { checkPokemon } from '../middlewares/pokemon.js';
 
 const pokemonRouter = express.Router()
 
-pokemonRouter.use("/:id/:info", checkPokemon, getPokemonInfo);
-pokemonRouter.use("/:id", checkPokemon, getPokemon);
-pokemonRouter.use("/", getPokemons);
+pokemonRouter.get("/:id/:info", checkPokemon, getPokemonInfo);
+pokemonRouter.get("/:id", checkPokemon, getPokemon);
+pokemonRouter.get("/", getPokemons);
 
 export default pokemonRouter
