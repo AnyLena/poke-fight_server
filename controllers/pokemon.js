@@ -55,7 +55,27 @@ export const getPokemon = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.get(`${POKE_API}/${id}/`);
-    res.json(response.data);
+    const poke = response;
+    const pokemon = {
+      id: poke.data.id,
+      name: {
+        en: poke.data.name,
+        other: "allNames",
+      },
+      type: poke.data.types.map((type) => type.type.name),
+      base: {
+        hp: poke.data.stats[0].base_stat,
+        attack: poke.data.stats[1].base_stat,
+        defense: poke.data.stats[2].base_stat,
+        special_attack: poke.data.stats[3].base_stat,
+        special_defense: poke.data.stats[4].base_stat,
+        speed: poke.data.stats[5].base_stat,
+      },
+      sprites: poke.data.sprites,
+    };
+
+    res.json(pokemon);
+    console.log("Fetching pokemon from API", response.data.name);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
