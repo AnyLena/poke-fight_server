@@ -26,7 +26,7 @@ export const getPokemons = async (req, res) => {
       return {
         id: poke.data.id,
         name: {
-          en: poke.data.name,
+          en: poke.data.name.slice(0, 1).toUpperCase() + poke.data.name.slice(1),
           other: allNames,
         },
         type: poke.data.types.map((type) => type.type.name),
@@ -59,7 +59,7 @@ export const getPokemon = async (req, res) => {
     const pokemon = {
       id: poke.data.id,
       name: {
-        en: poke.data.name,
+        en: poke.data.name.slice(0, 1).toUpperCase() + poke.data.name.slice(1),
         other: "allNames",
       },
       type: poke.data.types.map((type) => type.type.name),
