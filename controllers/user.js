@@ -47,14 +47,17 @@ export const postUser = async (req, res) => {
 
 export const putUser = async (req, res) => {
   const { id } = req.params;
-  const { newPokemonId, team } = req.body;
+  const { seenPokemonId, newPokemonId, team } = req.body;
   try {
     let update = {};
     if (newPokemonId) {
       update.$push = { pokemons: newPokemonId };
-    }
+    } 
     if (team) {
       update.$set = { team: team };
+    }
+    if (seenPokemonId) {
+      update.$push = { seen: seenPokemonId };
     }
     console.log(update);
     const data = await User.findByIdAndUpdate(id, update, { new: true });
