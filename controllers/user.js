@@ -51,13 +51,13 @@ export const putUser = async (req, res) => {
   try {
     let update = {};
     if (newPokemonId) {
-      update.$push = { pokemons: newPokemonId };
-    } 
+      update = { $addToSet: { pokemons: newPokemonId } };
+    }
     if (team) {
-      update.$set = { team: team };
+      update = { $set: { team: team } };
     }
     if (seenPokemonId) {
-      update.$push = { seen: seenPokemonId };
+      update = { $addToSet: { seen: seenPokemonId } };
     }
     console.log(update);
     const data = await User.findByIdAndUpdate(id, update, { new: true });
