@@ -47,7 +47,7 @@ export const postUser = async (req, res) => {
 
 export const putUser = async (req, res) => {
   const { id } = req.params;
-  const { seenPokemonId, newPokemonId, team } = req.body;
+  const { seenPokemonId, newPokemonId, team, battle } = req.body;
   try {
     let update = {};
     if (newPokemonId) {
@@ -59,9 +59,11 @@ export const putUser = async (req, res) => {
     if (seenPokemonId) {
       update = { $addToSet: { seen: seenPokemonId } };
     }
-    console.log(update);
+    if (battle) {
+      update = { $addToSet: { battles: battle } };
+      console.log("battle update", battle, update);
+    }
     const data = await User.findByIdAndUpdate(id, update, { new: true });
-    console.log("Updating user", data);
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
